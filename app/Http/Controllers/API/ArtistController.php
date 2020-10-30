@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\StoreArtist;
+use App\Models\Album;
 use App\Models\Artist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +18,8 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        //
+        $artists = Artist::paginate(10);
+        return response()->json($artists, 200);
     }
 
     /**
@@ -70,6 +72,21 @@ class ArtistController extends Controller
      */
     public function destroy($id)
     {
+        $artist = Artist::findOrFail($id);
+        $albums = Album::where('artist_id', $artist->id)->get();
+        if ($albums->count() > 0) {
+            return response()->json(
+                [
+                    "message" => "The given data was invalid.",
+                    "errors" => [
+                        "album_id" => [
+                            "Can not delete artist with albums attached to them."
+                        ]
+                    ]
+                ],
+                422
+            );
+        }
         Artist::destroy($id);
         return response()->json([], 200);
     }

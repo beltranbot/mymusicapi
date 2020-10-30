@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Album;
 use App\Models\Artist as Artist;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -143,5 +144,30 @@ class ArtistTest extends TestCase
             ->assertJson([
                 "message" => "NOT FOUND"
             ]);
+    }
+
+    public function testCanDestroyArtistWithAlbums()
+    {
+        $artist = Artist::factory()->create();
+        $album = Album::factory()->create(['artist_id' => $artist->id]);
+        $db_album = Album::find(1);
+        $this->json('DELETE', $this->base_url . $artist->id, $artist->toArray(), ['Accept' => 'application/json'])
+            ->assertStatus(422)
+            ->assertJson([
+                "message" => "The given data was invalid.",
+                "errors" => [
+                    "album_id" => [
+                        "Can not delete artist with albums attached to them."
+                    ]
+                ]
+            ]);
+    }
+
+    public function testGetAllArtist()
+    {
+        $artists = Artist::factory()->count(10)->create();
+        $response = $this->json('GET', $this->base_url, [], ['Accept' => 'application/json'])
+            ->assertStatus(200);
+        $this->assertSame($artists->count(), count(json_decode($response->getContent())->data));
     }
 }

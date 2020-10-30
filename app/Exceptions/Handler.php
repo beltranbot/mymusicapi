@@ -35,7 +35,6 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-
         $this->renderable(function (NotFoundHttpException $e, $request) {
             return response()->json(["message" => "NOT FOUND"], 404);
         });

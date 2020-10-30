@@ -179,4 +179,13 @@ class AlbumTest extends TestCase
                 "message" => "NOT FOUND"
             ]);
     }
+
+    public function testGetAllAlbum()
+    {
+        $artist = Artist::factory()->create();
+        $albums = Album::factory()->count(10)->create(['artist_id' => $artist->id]);
+        $response = $this->json('GET', $this->base_url, [], ['Accept' => 'application/json'])
+            ->assertStatus(200);
+        $this->assertSame($albums->count(), count(json_decode($response->getContent())->data));
+    }
 }
