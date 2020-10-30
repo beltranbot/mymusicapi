@@ -4,16 +4,16 @@ This project was created using Laravel version 8.x
 
 ## requirements
 
-PHP >= 7.3
-BCMath PHP Extension
-Ctype PHP Extension
-Fileinfo PHP Extension
-JSON PHP Extension
-Mbstring PHP Extension
-OpenSSL PHP Extension
-PDO PHP Extension
-Tokenizer PHP Extension
-XML PHP Extension
+* PHP >= 7.3
+* BCMath PHP Extension
+* Ctype PHP Extension
+* Fileinfo PHP Extension
+* JSON PHP Extension
+* Mbstring PHP Extension
+* OpenSSL PHP Extension
+* PDO PHP Extension
+* Tokenizer PHP Extension
+* XML PHP Extension
 
 ## Setup
 I'd advice to set up a vagrant box with the laravel homestead, details in how to set it up can be found here: https://laravel.com/docs/8.x/homestead
@@ -27,12 +27,12 @@ You will also need to generate an application key
     
 The project uses a simple pre-seeded SQLite database, the database file is under the /database folder, in the .env file the sqlite driver and *full path* to the database file will need to be configured, as follows:
 
-DB_CONNECTION=sqlite
-DB_HOST=
-DB_PORT=
-DB_DATABASE=<full-path-to-the-database-folder>/database.sqlite
-DB_USERNAME=root
-DB_PASSWORD=
+    DB_CONNECTION=sqlite
+    DB_HOST=
+    DB_PORT=
+    DB_DATABASE=<full-path-to-the-database-folder>/database.sqlite
+    DB_USERNAME=root
+    DB_PASSWORD=
 
 # Tests
 
