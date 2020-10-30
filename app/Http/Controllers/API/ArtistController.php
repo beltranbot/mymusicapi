@@ -40,7 +40,8 @@ class ArtistController extends Controller
      */
     public function show($id)
     {
-        
+        $artist = Artist::findOrFail($id);
+        return $this->response()->json($artist);
     }
 
     /**

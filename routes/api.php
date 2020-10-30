@@ -22,4 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/hello-world', [HelloWorldController::class, 'index']);
 
-Route::post('/artists', [ArtistController::class, 'store']);
+Route::apiResource('artists', ArtistController::class);

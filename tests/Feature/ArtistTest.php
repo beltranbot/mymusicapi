@@ -21,4 +21,11 @@ class ArtistTest extends TestCase
             ->assertStatus(201)
             ->assertJson($artist->toArray());
     }
+
+    public function testGetArtist()
+    {
+        $artist = Artist::factory()->create();
+        $databaseArtist = Artist::find(1);
+        $this->assertJson($artist->toJson(), $databaseArtist->toJson());
+    }
 }
