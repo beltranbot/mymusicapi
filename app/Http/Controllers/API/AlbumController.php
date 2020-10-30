@@ -54,7 +54,12 @@ class AlbumController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $artist = Album::findOrFail($id);
+        $artist->update([
+            "name" => $request->has("name") ? $request->input("name") : $artist->name,
+            "artist_id" => $request->has("artist_id") ? $request->input("artist_id") : $artist->artist_id,
+        ]);
+        return response()->json($artist, 200);
     }
 
     /**

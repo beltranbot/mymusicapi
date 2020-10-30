@@ -41,14 +41,16 @@ class AlbumTest extends TestCase
         $this->assertNull($deletedArtist);
     }
 
-    // public function testPutArtist()
-    // {
-    //     $album = Album::factory()->create();
-    //     $updatedArtist = Album::factory()->make();
-    //     $response = $this->json('PUT', $this->base_url . $album->id, $updatedArtist->toArray(), ['Accept' => 'application/json'])
-    //         ->assertStatus(200);
-    //     $this->assertEquals($updatedArtist->name, $response["name"]);
-    // }
+    public function testPutAlbumName()
+    {
+        $artist1 = Artist::factory()->create();
+        $artist2 = Artist::factory()->create();
+        $album1 = Album::factory()->create(["artist_id" => $artist1->id]);
+        $album2 = Album::factory()->make(["artist_id" => $artist2->id]);
+        $this->json('PUT', $this->base_url . $album1->id, $album2->toArray(), ['Accept' => 'application/json'])
+            ->assertStatus(200)
+            ->assertJson($album2->toArray());
+    }
 
     // public function testShouldBeAbleToUpdateTheSameIdData()
     // {
