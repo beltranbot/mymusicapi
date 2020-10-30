@@ -11,11 +11,7 @@ class ArtistTest extends TestCase
 {
 
     private $base_url = 'api/artists/';
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     public function testPostArtist()
     {
         $artist = Artist::factory()->make();
@@ -39,5 +35,14 @@ class ArtistTest extends TestCase
             ->assertStatus(200);
         $deletedArtist = Artist::find($artist->id);
         $this->assertNull($deletedArtist);
+    }
+
+    public function testPutArtist()
+    {
+        $artist = Artist::factory()->create();
+        $updatedArtist = Artist::factory()->make();
+        $response = $this->json('PUT', $this->base_url . $artist->id, $updatedArtist->toArray(), ['Accept' => 'application/json'])
+            ->assertStatus(200);
+        $this->assertEquals($updatedArtist->name, $response["name"]);
     }
 }

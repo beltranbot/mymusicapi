@@ -54,7 +54,11 @@ class ArtistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $artist = Artist::findOrFail($id);
+        $artist->update([
+            "name" => $request->input("name")
+        ]);
+        return response()->json($artist, 200);
     }
 
     /**
