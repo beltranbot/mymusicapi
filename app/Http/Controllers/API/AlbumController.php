@@ -65,6 +65,7 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Album::destroy($id);
+        return response()->json([], 200);
     }
 }

@@ -13,7 +13,7 @@ class AlbumTest extends TestCase
 
     private $base_url = 'api/albums/';
 
-    public function testPostArtist()
+    public function testPostAlbum()
     {
         $artist = Artist::factory()->create();
         $album = Album::factory()->make(["artist_id" => $artist->id]);
@@ -22,7 +22,7 @@ class AlbumTest extends TestCase
             ->assertJson($album->toArray());
     }
 
-    public function testGetArtist()
+    public function testGetAlbum()
     {
         $artist = Artist::factory()->create();
         $album = Album::factory()->create(["artist_id" => $artist->id]);
@@ -31,14 +31,15 @@ class AlbumTest extends TestCase
             ->assertJson($album->toArray());
     }
 
-    // public function testDestroyArtist()
-    // {
-    //     $album = Album::factory()->create();
-    //     $this->json('DELETE', $this->base_url . $album->id, $album->toArray(), ['Accept' => 'application/json'])
-    //         ->assertStatus(200);
-    //     $deletedArtist = Album::find($album->id);
-    //     $this->assertNull($deletedArtist);
-    // }
+    public function testDestroyAlbum()
+    {
+        $artist = Artist::factory()->create();
+        $album = Album::factory()->create(["artist_id" => $artist->id]);
+        $this->json('DELETE', $this->base_url . $album->id, $album->toArray(), ['Accept' => 'application/json'])
+            ->assertStatus(200);
+        $deletedArtist = Album::find($album->id);
+        $this->assertNull($deletedArtist);
+    }
 
     // public function testPutArtist()
     // {
