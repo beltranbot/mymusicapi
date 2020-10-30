@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AlbumController;
 use App\Http\Controllers\API\ArtistController;
 use App\Http\Controllers\API\HelloWorldController;
 use Illuminate\Http\Request;
@@ -23,3 +24,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('hello-world', [HelloWorldController::class, 'index']);
 
 Route::apiResource('artists', ArtistController::class);
+Route::apiResource('albums', AlbumController::class);
