@@ -20,6 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/hello-world', [HelloWorldController::class, 'index']);
+Route::get('hello-world', [HelloWorldController::class, 'index']);
 
 Route::apiResource('artists', ArtistController::class);
