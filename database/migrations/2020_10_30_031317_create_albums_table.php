@@ -17,6 +17,7 @@ class CreateAlbumsTable extends Migration
             $table->id();
             $table->foreignId('artist_id')->constrained();
             $table->string('name', 50);
+            $table->unique(['artist_id', 'name']);
             $table->timestamps();
         });
     }

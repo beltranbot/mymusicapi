@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\StoreAlbum;
 use App\Models\Album;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class AlbumController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAlbum $request)
     {
         $artist = Album::create([
             "artist_id" => $request->input('artist_id'),
@@ -52,7 +53,7 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreAlbum $request, $id)
     {
         $artist = Album::findOrFail($id);
         $artist->update([

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\API;
 
+use App\Rules\API\UniqueArtistAlbumNameRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAlbum extends FormRequest
@@ -13,7 +14,7 @@ class StoreAlbum extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,12 @@ class StoreAlbum extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|min:2|max:50',
+            'artist_id' => [
+                'required',
+                'exists:artists,id',
+                new UniqueArtistAlbumNameRule($this->route("album"), $this->artist_id, $this->name)
+            ]
         ];
     }
 }
