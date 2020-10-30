@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Artist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ArtistController extends Controller
 {
@@ -41,7 +42,7 @@ class ArtistController extends Controller
     public function show($id)
     {
         $artist = Artist::findOrFail($id);
-        return $this->response()->json($artist);
+        return response()->json($artist, 200);
     }
 
     /**
@@ -64,6 +65,7 @@ class ArtistController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Artist::destroy($id);
+        return response()->json([], 200);
     }
 }
