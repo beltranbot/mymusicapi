@@ -41,7 +41,8 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        //
+        $album = Album::findOrFail($id);
+        return response()->json($album, 200);
     }
 
     /**

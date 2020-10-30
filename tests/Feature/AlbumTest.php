@@ -22,13 +22,14 @@ class AlbumTest extends TestCase
             ->assertJson($album->toArray());
     }
 
-    // public function testGetArtist()
-    // {
-    //     $album = Album::factory()->create();
-    //     $this->json('GET', $this->base_url . $album->id, [], ['Accept' => 'application/json'])
-    //         ->assertStatus(200)
-    //         ->assertJson($album->toArray());
-    // }
+    public function testGetArtist()
+    {
+        $artist = Artist::factory()->create();
+        $album = Album::factory()->create(["artist_id" => $artist->id]);
+        $this->json('GET', $this->base_url . $album->id, [], ['Accept' => 'application/json'])
+            ->assertStatus(200)
+            ->assertJson($album->toArray());
+    }
 
     // public function testDestroyArtist()
     // {
